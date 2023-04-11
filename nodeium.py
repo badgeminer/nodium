@@ -1,17 +1,25 @@
 import pygame
 
 class node:
-    def __init__(self,col,rect,hdh=5) -> None:
-        self.col = col
+    def __init__(self,col,rect,name="test",hdh=10) -> None:
+        self.col = pygame.Color(col)
         self.drg = False
         self.HDH =hdh
+        self.font = self.font = pygame.font.Font(None, 15)
         self.rect = pygame.rect.Rect(rect)
         self.hd = pygame.rect.Rect(rect)
         self.nds = self.hd.y + (hdh + 3)
         self.co = self.hd.x+(self.hd.w-6)
         self.ci = self.hd.x+1
-        self.outcon = [conn("white",0,0)]
-        self.incon = [conn("white",0,0)]
+        self.outcon = [conn("white",0,0),conn("red",0,0)]
+        self.incon = [conn("white",0,0),conn("red",0,0)]
+
+        colz = self.col.grayscale()
+        if colz[0] < 100:
+            self.tx = self.font.render(" "+name,True,"white")
+        else:
+            self.tx = self.font.render(" "+name,True,"black")
+
         I = self.nds
         for i in self.outcon:
             i.rect.x,i.rect.y = self.co,I
@@ -24,6 +32,7 @@ class node:
     def draw(self,scr:pygame.Surface):
         scr.fill((50,50,50),self.rect)
         scr.fill(self.col,self.hd)
+        scr.blit(self.tx,self.hd)
         for i in self.outcon:
             i.draw(scr)
         for i in self.incon:

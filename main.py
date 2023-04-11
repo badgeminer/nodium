@@ -1,10 +1,14 @@
 import pygame,nodeium,sys
 
+
+
 pygame.init()
 scr = pygame.display.set_mode((500,500))
-nd = nodeium.node((255,0,0),(10,10,50,50))
-n = nodeium.node((0,255,0),(70,10,50,50))
+nd = nodeium.node((255,0,0),(10,10,100,50),"start")
+n = nodeium.node((0,255,0),(120,10,50,50))
 n.incon[0].connd = nd.outcon[0]
+n.incon[1].connd = nd.outcon[1]
+nd.incon = []
 nds = [n,nd]
 while True:
     scr.fill((0,0,0))
